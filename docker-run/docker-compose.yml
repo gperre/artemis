@@ -1,0 +1,31 @@
+version: '2.0'
+services:
+  broker1:
+    image: gperre/broker
+    
+    mem_limit: 512M
+    volumes:
+      - .\etc-bk1:/var/lib/artemis/etc
+    network_mode: host
+      
+  broker2:
+    depends_on:
+      - broker1
+    image: gperre/broker
+
+    mem_limit: 512M
+    volumes:
+      - .\etc-bk2:/var/lib/artemis/etc-override
+    network_mode: host
+
+  sender:
+    depends_on:
+      - broker1
+    image: gperre/sender
+    network_mode: host
+
+  consumer:
+    depends_on:
+      - broker1
+    image: gperre/consumer
+    network_mode: host
