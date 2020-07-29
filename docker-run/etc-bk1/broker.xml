@@ -19,7 +19,7 @@ under the License.
 -->
 <configuration xmlns="urn:activemq" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:activemq /schema/artemis-configuration.xsd">
   <core xmlns="urn:activemq:core" xsi:schemaLocation="urn:activemq:core ">
-    <name>broker1</name>
+    <name>6f287011bc3e</name>
     <persistence-enabled>true</persistence-enabled>
     <!-- this could be ASYNCIO, MAPPED, NIO
            ASYNCIO: Linux Libaio
@@ -54,7 +54,7 @@ under the License.
        Note: If you specify 0 the system will perform writes directly to the disk.
              We recommend this to be 0 if you are using journalType=MAPPED and journal-datasync=false.
       -->
-    <journal-buffer-timeout>40000</journal-buffer-timeout>
+    <journal-buffer-timeout>72000</journal-buffer-timeout>
     <!--
         When using ASYNCIO, this will determine the writing queue depth for libaio.
        -->
@@ -215,8 +215,8 @@ under the License.
 -->
     <connectors>
       <!-- Connector used to be announced through cluster connections and notifications -->
-      <connector name="artemis">tcp://localhost:61616</connector>
-      <connector name="cluster-connector">tcp://localhost:61617</connector>
+      <connector name="artemis">tcp://172.20.0.100:61616</connector>
+      <connector name="cluster-connector">tcp://172.20.0.101:61617</connector>
     </connectors>
     <cluster-user>admin-clust</cluster-user>
     <cluster-password>prodamq2018</cluster-password>

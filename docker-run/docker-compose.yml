@@ -1,31 +1,60 @@
-version: '2.0'
+version: '2'
+
 services:
   broker1:
-    image: gperre/broker
-    
+    build:
+      context: ../docker-build/broker/
+      args:
+        ACTIVEMQ_ARTEMIS_VERSION: 2.13.0
+        BASE_IMAGE: openjdk:8u232-jre-stretch
     mem_limit: 512M
     volumes:
-      - .\etc-bk1:/var/lib/artemis/etc
-    network_mode: host
+      - ./etc-bk1:/var/lib/artemis/etc
+    ports:
+      - "8261:8261"
+    expose:
+      - "61616"
+      - "9876"
+    networks:
+      artemis_network:
+        ipv4_address: 172.20.0.100
       
   broker2:
     depends_on:
       - broker1
-    image: gperre/broker
-
+    build:
+      context: ../docker-build/broker/
+      args:
+        ACTIVEMQ_ARTEMIS_VERSION: 2.13.0
+        BASE_IMAGE: openjdk:8u232-jre-stretch
     mem_limit: 512M
     volumes:
-      - .\etc-bk2:/var/lib/artemis/etc-override
-    network_mode: host
+      - ./etc-bk2:/var/lib/artemis/etc-override
+    expose:
+      - "61617"
+      - "9876"
+    networks:
+      artemis_network:
+        ipv4_address: 172.20.0.200
 
   sender:
     depends_on:
       - broker1
-    image: gperre/sender
-    network_mode: host
-
+    build:
+      context: ../docker-build/sender/
+    networks:
+      artemis_network:
+        
   consumer:
     depends_on:
       - broker1
-    image: gperre/consumer
-    network_mode: host
+    build:
+      context: ../docker-build/consumer/
+    networks:
+      artemis_network:
+
+networks:
+  artemis_network:
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16

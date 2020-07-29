@@ -217,8 +217,8 @@ under the License.
 -->
     <connectors>
       <!-- Connector used to be announced through cluster connections and notifications -->
-      <connector name="artemis">tcp://localhost:61617</connector>
-      <connector name="cluster-connector">tcp://localhost:61616</connector>
+      <connector name="artemis">tcp://172.20.0.101:61617</connector>
+      <connector name="cluster-connector">tcp://172.20.0.100:61616</connector>
     </connectors>
     <cluster-user>admin-clust</cluster-user>
     <cluster-password>prodamq2018</cluster-password>

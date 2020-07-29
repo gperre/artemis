@@ -45,7 +45,7 @@ public class AMQSender extends Thread {
     
     public static String username = "cli";//"admin";
     public static String password = "cli"; //"admin";
-    public static String brokers =  "failover:(tcp://localhost:61616,tcp://localhost:61617)?randomize=false";
+    public static String brokers =  "failover:(tcp://172.20.0.100:61616,tcp://172.20.0.101:61617)?randomize=false";
 
     public static void main(String[] args) throws Exception {
       
