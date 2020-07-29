@@ -19,7 +19,7 @@ under the License.
 -->
 <configuration xmlns="urn:activemq" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:activemq /schema/artemis-configuration.xsd">
   <core xmlns="urn:activemq:core" xsi:schemaLocation="urn:activemq:core ">
-    <name>6f287011bc3e</name>
+    <name>broker1</name>
     <persistence-enabled>true</persistence-enabled>
     <!-- this could be ASYNCIO, MAPPED, NIO
            ASYNCIO: Linux Libaio
@@ -112,7 +112,7 @@ under the License.
                     See https://issues.apache.org/jira/browse/ARTEMIS-1644 for more information. -->
       <!-- Acceptor for every supported protocol -->
       <!--amqpMinLargeMessageSize=10-->
-      <acceptor name="artemis">tcp://0.0.0.0:61616?tcpSendBufferSize=1048576;tcpReceiveBufferSize=1048576;protocols=CORE,AMQP,STOMP,HORNETQ,MQTT,OPENWIRE;useEpoll=true;amqpCredits=1000;amqpLowCredits=300;amqpDuplicateDetection=true;advisorySupport=false</acceptor>
+      <acceptor name="artemis">tcp://0.0.0.0:61616?tcpSendBufferSize=1048576;tcpReceiveBufferSize=1048576;protocols=CORE,AMQP,STOMP,HORNETQ,MQTT,OPENWIRE;useEpoll=true;amqpCredits=1000;amqpLowCredits=300;amqpDuplicateDetection=true;advisorySupport=true</acceptor>
       <!-- AMQP Acceptor.  Listens on default AMQP port for AMQP traffic.-->
       <acceptor name="amqp">tcp://0.0.0.0:5672?tcpSendBufferSize=1048576;tcpReceiveBufferSize=1048576;protocols=AMQP;useEpoll=true;amqpCredits=1000;amqpLowCredits=300;amqpMinLargeMessageSize=102400;amqpDuplicateDetection=true</acceptor>
       <!-- STOMP Acceptor. -->
@@ -181,11 +181,6 @@ under the License.
       <address name="TooTooBig.Queue">
         <anycast>
           <queue name="TooTooBig.Queue" exclusive="true"/>
-        </anycast>
-      </address>
-      <address name="BooTooBig.Queue">
-        <anycast>
-          <queue name="BooTooBig.Queue" exclusive="true"/>
         </anycast>
       </address>
     </addresses>

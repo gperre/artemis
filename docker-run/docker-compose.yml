@@ -5,13 +5,13 @@ services:
     build:
       context: ../docker-build/broker/
       args:
-        ACTIVEMQ_ARTEMIS_VERSION: 2.13.0
+        ACTIVEMQ_ARTEMIS_VERSION: 2.14.0
         BASE_IMAGE: openjdk:8u232-jre-stretch
     mem_limit: 512M
     volumes:
-      - ./etc-bk1:/var/lib/artemis/etc
+      - ./etc-bk1:/var/lib/artemis/etc-override
     ports:
-      - "8261:8261"
+      - "8161:8161"
     expose:
       - "61616"
       - "9876"
@@ -25,17 +25,19 @@ services:
     build:
       context: ../docker-build/broker/
       args:
-        ACTIVEMQ_ARTEMIS_VERSION: 2.13.0
+        ACTIVEMQ_ARTEMIS_VERSION: 2.14.0
         BASE_IMAGE: openjdk:8u232-jre-stretch
     mem_limit: 512M
     volumes:
       - ./etc-bk2:/var/lib/artemis/etc-override
+    ports:
+      - "8261:8161"
     expose:
       - "61617"
       - "9876"
     networks:
       artemis_network:
-        ipv4_address: 172.20.0.200
+        ipv4_address: 172.20.0.101
 
   sender:
     depends_on:

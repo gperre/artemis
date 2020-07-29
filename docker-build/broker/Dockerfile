@@ -73,7 +73,7 @@ RUN if test "${ACTIVEMQ_ARTEMIS_VERSION}" = "1.0.0" ; \
         --cluster-user artemisCluster \
         --cluster-password artemis ; \
     fi 
-RUN "/var/lib/artemis/bin/artemis" user add --user cli --password cli --role amq
+
         
 # Using KUBE_PING 0.9.3. Can't upgrade to 1.x.x as Artemis uses JGroups 3.3.x 
 # https://github.com/jgroups-extras/jgroups-kubernetes/issues/30
@@ -183,7 +183,7 @@ EXPOSE 61613
 WORKDIR /var/lib/artemis/bin
 
 USER artemis
-
+RUN "/var/lib/artemis/bin/artemis" user add --user cli --password cli --role amq
 RUN mkdir /var/lib/artemis/lock
 
 # Expose some outstanding folders
