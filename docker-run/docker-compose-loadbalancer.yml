@@ -1,0 +1,17 @@
+version: "3.3"
+services:  
+ 
+ loadbalancer:
+  build:
+   context: ../docker-build/loadbalancer/
+  network_mode: host
+ 
+ consumer:
+  build:
+   context: ../docker-build/butinator/
+  network_mode: host
+  
+ sender:
+  build:
+   context: ../docker-build/bourinator/
+  network_mode: host
