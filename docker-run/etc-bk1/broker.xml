@@ -180,7 +180,7 @@ under the License.
       </address>
       <address name="TooTooBig.Queue">
         <anycast>
-          <queue name="TooTooBig.Queue" exclusive="true"/>
+          <queue name="TooTooBig.Queue" exclusive="false"/>
         </anycast>
       </address>
     </addresses>

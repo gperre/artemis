@@ -1,0 +1,80 @@
+version: "3.3"
+
+services:
+  broker1:
+    build:
+      context: ../docker-build/broker/
+      args:
+        ACTIVEMQ_ARTEMIS_VERSION: 2.14.0
+        BASE_IMAGE: openjdk:8u232-jre-stretch
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+    volumes:
+      - ./etc-bk1:/var/lib/artemis/etc-override
+    ports:
+      - "8161:8161"
+    expose:
+      - "61616"
+      - "9876"
+    networks:
+      artemis_network:
+        ipv4_address: 172.20.0.100
+      
+  broker2:
+    depends_on:
+      - broker1
+    build:
+      context: ../docker-build/broker/
+      args:
+        ACTIVEMQ_ARTEMIS_VERSION: 2.14.0
+        BASE_IMAGE: openjdk:8u232-jre-stretch
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+    volumes:
+      - ./etc-bk2:/var/lib/artemis/etc-override
+    ports:
+      - "8261:8161"
+    expose:
+      - "61617"
+      - "9876"
+    networks:
+      artemis_network:
+        ipv4_address: 172.20.0.101
+
+  selector1:
+    depends_on:
+      - broker2
+    build:
+      context: ../docker-build/selector1/
+    networks:
+      artemis_network:
+        ipv4_address: 172.20.0.103
+  
+  selector2:
+    depends_on:
+      - broker2
+    build:
+      context: ../docker-build/selector2/
+    networks:
+      artemis_network:
+        ipv4_address: 172.20.0.104
+
+  sender:
+    depends_on:
+      - broker2
+    build:
+      context: ../docker-build/sender/
+    networks:
+      artemis_network:
+        ipv4_address: 172.20.0.105
+  
+
+networks:
+  artemis_network:
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16

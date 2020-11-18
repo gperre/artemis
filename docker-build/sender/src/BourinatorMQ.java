@@ -30,9 +30,9 @@ public class BourinatorMQ {
     
   
     public static String queueName = "PREPROD.FRA.Logistics.Manifests.Queue";  
-    public static String username = "producer";
-    public static String password = "produceramq2018";
-    public static String brokerPP =  "failover:(tcp://preprodamq01:61616,tcp://preprodamq02:61616)";
+    public static String username = "cli";
+    public static String password = "cli";
+    public static String brokerPP =  "failover:(tcp://192.168.0.166:61616,tcp://192.168.0.168:61616)";
 
 
 
@@ -53,7 +53,7 @@ public class BourinatorMQ {
         if( nb > 0) {
             for(int i=0;i<nb;i++){
                 sendFile(fpath,broker,login,pwd,queueName);
-                Thread.sleep(1);
+               // Thread.sleep(1);
             }
         }
         else if( nb == 0) {

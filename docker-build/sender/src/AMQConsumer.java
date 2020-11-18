@@ -36,6 +36,7 @@ public class AMQConsumer extends Thread {
     public static String brokers =  "failover:(tcp://localhost:61616,tcp://localhost:61617)?randomize=false";
 
     public static void main(String[] args) throws Exception {
+      int pause = Integer.parseInt(args[0]);
       int i=0;
       while(true){
         try {
@@ -53,14 +54,19 @@ public class AMQConsumer extends Thread {
             if (message instanceof TextMessage) {
                 TextMessage textMessage = (TextMessage) message;
                 String text = textMessage.getText();
-                if(text !=null)
-                System.out.println("Received: ok" + text.length());
-            } else {
-               if(message!=null) System.out.println("Received: " + message);
-            }
+                System.out.println("Received message from "+queueName +" (" + i+")" );
+            } 
+              
+            //pause between scan
+            
+            try{ Thread.sleep(pause); }catch(Exception e){}
+
+
             consumer.close();
             session.close();
             connection.close();
+
+            i++;
         } catch (Exception e) {
             System.out.println("Caught: " + e);
             e.printStackTrace();
