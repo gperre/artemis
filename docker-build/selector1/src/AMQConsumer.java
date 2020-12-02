@@ -38,6 +38,7 @@ public class AMQConsumer  {
 
     public static void main(String[] args) throws Exception {
     //  int pause = Integer.parseInt(args[0]);
+	int pause=1000;
       int i=0;
       Connection connection =null;
       Session session = null;
@@ -52,7 +53,7 @@ public class AMQConsumer  {
             //ActiveMQQueue mq = new ActiveMQQueue(queue+"?exclusive=true");
             Destination destination = session.createQueue(queueName);
             System.out.println("Consumer initialize with selector="+args[0]);
-            consumer = session.createConsumer(destination,args[0]);
+            consumer = session.createConsumer(destination ,args[0]);
             while(true){
                 Message message = consumer.receive(1000);
             
@@ -60,9 +61,10 @@ public class AMQConsumer  {
                     TextMessage textMessage = (TextMessage) message;
                     String text = textMessage.getText();
                     System.out.println("Received message with selector["+args[0]+"] from "+queueName +" (" + i+")=" + textMessage.getStringProperty("tag") );
+                    System.out.println(textMessage.toString());
                 } 
                 i++;
-               // try{ Thread.sleep(pause); }catch(Exception e){}
+               try{ Thread.sleep(pause); }catch(Exception e){}
             }
             //pause between scan
             

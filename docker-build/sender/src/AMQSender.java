@@ -101,6 +101,9 @@ public class AMQSender extends Thread {
             String text = msg;
             TextMessage message = session.createTextMessage(text);
             message.setStringProperty("tag","selector"+(new java.util.Random().ints(1, (2 + 1)).limit(1).findFirst().getAsInt()));
+            message.setStringProperty("https://Soget.EM.Schemas.PropertySchema#Owner","MSET");
+            
+            
             producer.send(message);
             session.close();
             connection.close();

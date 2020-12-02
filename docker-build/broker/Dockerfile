@@ -158,6 +158,8 @@ RUN chown -R artemis.artemis /opt/jmx-exporter
 RUN mkdir -p /opt/assets
 COPY assets/merge.xslt /opt/assets
 COPY assets/enable-jmx.xml /opt/assets
+COPY assets/lib /opt/apache-artemis-${ACTIVEMQ_ARTEMIS_VERSION}/lib/
+COPY assets/lib /var/artemis/lib/
 
 # Web Server
 EXPOSE 8161

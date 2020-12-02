@@ -52,7 +52,9 @@ public class AMQConsumer  {
             session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
             //ActiveMQQueue mq = new ActiveMQQueue(queue+"?exclusive=true");
             Destination destination = session.createQueue(queueName);
+          //  String x = "xpath '//*[local-name()=''Owner'' and text()=''EDIGREG'']'";
             System.out.println("Consumer initialize with selector="+args[0]);
+            
             consumer = session.createConsumer(destination,args[0]);
             while(true){
                 Message message = consumer.receive(1000);
@@ -61,6 +63,7 @@ public class AMQConsumer  {
                     TextMessage textMessage = (TextMessage) message;
                     String text = textMessage.getText();
                     System.out.println("Received message with selector["+args[0]+"] from "+queueName +" (" + i+")=" + textMessage.getStringProperty("tag") );
+                    
                 } 
                 i++;
                try{ Thread.sleep(pause); }catch(Exception e){}
