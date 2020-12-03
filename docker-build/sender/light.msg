@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <ns:IntegrateAnnouncement xmlns:ns="http://services.ssw.soget.fr/201511/"
     xmlns:edi="http://schemas.ssw.soget.fr/edi/"
     xmlns:ns1="http://schemas.ssw.soget.fr/201308/"
@@ -13,4 +14,5 @@
     </ns:header>
     <ns:announcement>
         <ns1:Sender>CGREG</ns1:Sender>
+	<!--/ns:announcement-->
 </ns:IntegrateAnnouncement>

@@ -160,6 +160,9 @@ COPY assets/merge.xslt /opt/assets
 COPY assets/enable-jmx.xml /opt/assets
 COPY assets/lib /opt/apache-artemis-${ACTIVEMQ_ARTEMIS_VERSION}/lib/
 COPY assets/lib /var/artemis/lib/
+COPY assets/lib /var/lib/artemis/lib/
+COPY assets/lib /opt/apache-artemis/lib
+
 
 # Web Server
 EXPOSE 8161

@@ -1,4 +1,5 @@
 import org.apache.activemq.ActiveMQConnectionFactory;
+//import org.apache.activemq.artemis.jms.client.ActiveMQConnectionFactory;
 import org.apache.activemq.command.ActiveMQQueue;
 import javax.jms.Connection;
 import javax.jms.DeliveryMode;
@@ -10,6 +11,7 @@ import javax.jms.MessageConsumer;
 import javax.jms.MessageProducer;
 import javax.jms.Session;
 import javax.jms.TextMessage;
+import org.apache.activemq.command.ActiveMQTextMessage;
 
 import java.io.*;
 import java.nio.file.*;
@@ -99,11 +101,15 @@ public class AMQSender extends Thread {
             MessageProducer producer = session.createProducer(destination);
             producer.setDeliveryMode(DeliveryMode.PERSISTENT);
             String text = msg;
-            TextMessage message = session.createTextMessage(text);
+			
+			ActiveMQTextMessage message = new ActiveMQTextMessage();
+            //TextMessage message = session.createTextMessage(text);
+			
             message.setStringProperty("tag","selector"+(new java.util.Random().ints(1, (2 + 1)).limit(1).findFirst().getAsInt()));
             message.setStringProperty("https://Soget.EM.Schemas.PropertySchema#Owner","MSET");
-            
-            
+            message.setJMSType("xml");
+            message.setText(text);
+			
             producer.send(message);
             session.close();
             connection.close();
